@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { QualquerComponent } from './qualquer/qualquer.component';
+import { CaixaexemploComponent } from './caixaexemplo/caixaexemplo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QualquerComponent
+    QualquerComponent,
+    CaixaexemploComponent
   ],
   imports: [
     BrowserModule

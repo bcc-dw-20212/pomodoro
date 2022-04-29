@@ -4,6 +4,17 @@
 
 <button (click)="grite()">Clique aqui</button>
 
-<input (input)="sobrenome" [value]="sobrenome">
+<input type="text" [value]="sobrenome" (input)="onSobrenome($event)">
 
 <app-qualquer></app-qualquer>
+
+<form>
+<app-caixaexemplo ph="nome"
+		  pattern="/^[a-zA-Z\s]*$/"
+		  (clicou)="oInputFoiClicado($event)"></app-caixaexemplo>
+<app-caixaexemplo ph="senha"></app-caixaexemplo>
+<app-caixaexemplo ph="idade"></app-caixaexemplo>
+
+<button type="submit">enviar</button>
+</form>
+

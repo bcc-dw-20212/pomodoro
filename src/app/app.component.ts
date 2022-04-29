@@ -6,14 +6,18 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @Input('app-sobrenome') sobrenome: String = "Bastos";
-
   title = 'pomodoro';
   nome: String = 'Felipe';
+  sobrenome: String = "Bastos";
   idade: number = 34;
 
   getNome() : String {
     return this.nome;
+  }
+
+  onSobrenome(novo : Event): void {
+    const elemento = novo.target as HTMLInputElement;
+    this.sobrenome = elemento.value;
   }
 
   multiplica(valor: number) : number {
@@ -22,5 +26,9 @@ export class AppComponent {
 
   grite() : void {
     alert('AAAAAAAaaaaahhhhH!!!!');
+  }
+
+  oInputFoiClicado(evt : {ph: String, re: String}) {
+	alert(`O input com placeholder ${evt.ph} tem o padrão ${evt.re}.`);
   }
 }
