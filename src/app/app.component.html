@@ -4,7 +4,7 @@
 
 <button (click)="grite()">Clique aqui</button>
 
-<input type="text" [value]="sobrenome" (input)="onSobrenome($event)">
+<input type="text" [(ngModel)]="sobrenome">
 
 <app-qualquer></app-qualquer>
 
@@ -17,4 +17,5 @@
 
 <button type="submit">enviar</button>
 </form>
-
+<hr>
+<app-calculadora></app-calculadora>

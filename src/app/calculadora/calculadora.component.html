@@ -1,0 +1,14 @@
+<div class="calculadora">
+    <input *ngIf="edita; else outra" type="text" class="tela" [(ngModel)]="tela">
+    <ng-template #outra>
+        <input type="text" class="tela" [(ngModel)]="tela" readonly>
+        <span>Modo somente leitura ativo.</span>
+    </ng-template>
+    
+    <input type="checkbox" [(ngModel)]="edita">
+    <div class="teclado">
+        <app-botao *ngFor="let item of listaNum" valor="{{item}}" (clicked)="onClicked($event)">
+        </app-botao>
+        
+    </div>
+</div>

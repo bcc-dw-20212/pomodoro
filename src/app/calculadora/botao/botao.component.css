@@ -1,0 +1,8 @@
+button.botao {
+    padding: 1.5em;
+    background-color: darkgrey;
+    color: white;
+}
+button.botao:hover {
+    background-color: lightgrey;
+}
