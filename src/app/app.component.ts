@@ -1,15 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IfceserviceService } from './ifceservice.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'pomodoro';
   nome: String = 'Felipe';
   sobrenome: String = "Bastos";
   idade: number = 34;
+
+  constructor(private ifceservice: IfceserviceService){}
+
+  ngOnInit(): void {
+    this.ifceservice.checaSiteIFCE().subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
+  }
 
   getNome() : String {
     return this.nome;
