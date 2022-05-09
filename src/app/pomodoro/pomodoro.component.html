@@ -1,8 +1,14 @@
 <div class="relogio">
+    <div class="inspira">
+        {{(qod|async) || 'Uma quote qualquer'}}
+    </div>
     <div class="tela">
         {{getTempoMinutos()}}
     </div>
     <div class="botao">
         <button (click)="botaoClicado()">{{getLabel()}}</button>
+    </div>
+    <div class="rodape">
+        Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
     </div>
 </div>

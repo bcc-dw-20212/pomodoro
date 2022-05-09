@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { QuoteserviceService } from './quoteservice.service';
 
 @Component({
   selector: 'app-pomodoro',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pomodoro.component.css']
 })
 export class PomodoroComponent implements OnInit {
+  qod: Observable<{q: string, a: string, h: string}> = new Observable<{q: string, a: string, h: string}>();
+
   tempos: number[] = [25*60, 5*60, 25*60, 5*60, 25*60, 45*60];
   tempo_corrente: number;
   tempo: number = 0;
@@ -15,11 +19,17 @@ export class PomodoroComponent implements OnInit {
 
   alarme: HTMLAudioElement;
 
-  constructor() {
+  constructor(private quote: QuoteserviceService) {
     this.tempo_corrente = this.tempos[this.tempo];
 
     this.alarme = new Audio("https://upload.wikimedia.org/wikipedia/commons/5/5c/Singapore_Public_Warning_System_siren.ogg");
     this.alarme.loop = true;
+
+    this.quote.getQuoteOfTheDay().subscribe((data) => {
+      console.log('OI oi oi');
+      console.log(data);
+      this.qod = data;
+    });
   }
 
   ngOnInit(): void {

@@ -15,11 +15,11 @@ export class AppComponent implements OnInit {
   constructor(private ifceservice: IfceserviceService){}
 
   ngOnInit(): void {
-    this.ifceservice.checaSiteIFCE().subscribe(
+    /*this.ifceservice.checaSiteIFCE().subscribe(
       (data) => {
         console.log(data);
       }
-    );
+    );*/
   }
 
   getNome() : String {
