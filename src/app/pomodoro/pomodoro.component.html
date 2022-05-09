@@ -1,1 +1,8 @@
-<p>pomodoro works!</p>
+<div class="relogio">
+    <div class="tela">
+        {{getTempoMinutos()}}
+    </div>
+    <div class="botao">
+        <button (click)="botaoClicado()">{{getLabel()}}</button>
+    </div>
+</div>
