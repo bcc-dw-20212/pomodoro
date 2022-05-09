@@ -9,6 +9,7 @@ import { CalculadoraComponent } from './calculadora/calculadora.component';
 import { BotaoComponent } from './calculadora/botao/botao.component';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule} from '@angular/common/http';
+import { PomodoroComponent } from './pomodoro/pomodoro.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule} from '@angular/common/http';
     QualquerComponent,
     CaixaexemploComponent,
     CalculadoraComponent,
-    BotaoComponent
+    BotaoComponent,
+    PomodoroComponent
   ],
   imports: [
     BrowserModule,
