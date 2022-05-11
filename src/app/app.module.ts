@@ -10,6 +10,9 @@ import { BotaoComponent } from './calculadora/botao/botao.component';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule} from '@angular/common/http';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
+import { TelaComponent } from './pomodoro/tela/tela.component';
+import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
+import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { PomodoroComponent } from './pomodoro/pomodoro.component';
     CaixaexemploComponent,
     CalculadoraComponent,
     BotaoComponent,
-    PomodoroComponent
+    PomodoroComponent,
+    TelaComponent,
+    BotaoPomoComponent,
+    CicloconfigComponent
   ],
   imports: [
     BrowserModule,
