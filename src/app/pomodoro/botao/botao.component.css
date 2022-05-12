@@ -1,0 +1,7 @@
+div.botao > button{
+    background-color: olive;
+    color: white;
+    font-size: 2em;
+    border-radius: 4px;
+    padding: 10px;
+}

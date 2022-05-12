@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { QuoteserviceService } from './quoteservice.service';
 
 @Component({
   selector: 'app-pomodoro',
@@ -6,20 +8,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pomodoro.component.css']
 })
 export class PomodoroComponent implements OnInit {
-  tempos: number[] = [25*60, 5*60, 25*60, 5*60, 25*60, 45*60];
+  qod: Observable<{q: string, a: string, h: string}> = new Observable<{q: string, a: string, h: string}>();
+
+  tempos: number[] = [10, 5*60, 25*60, 5*60, 25*60, 45*60];
   tempo_corrente: number;
   tempo: number = 0;
   ligado: boolean = false;
-  botao_labels: string[] = ['iniciar', 'pausar', 'continuar'];
+  
   botao: number = 0;
 
   alarme: HTMLAudioElement;
 
-  constructor() {
+  constructor(private quote: QuoteserviceService) {
     this.tempo_corrente = this.tempos[this.tempo];
 
     this.alarme = new Audio("https://upload.wikimedia.org/wikipedia/commons/5/5c/Singapore_Public_Warning_System_siren.ogg");
     this.alarme.loop = true;
+
+    this.quote.getQuoteOfTheDay().subscribe((data) => {
+      console.log('OI oi oi');
+      console.log(data);
+      this.qod = data;
+    });
   }
 
   ngOnInit(): void {
@@ -45,20 +55,7 @@ export class PomodoroComponent implements OnInit {
 
   }
 
-  getTempoMinutos() : string {
-    let minutos: number = 0;
-    let segundos: number = 0;
-
-    minutos = Math.floor(this.tempo_corrente/60);
-    segundos = this.tempo_corrente - minutos*60;
-
-    const minutos_str: string = String(minutos).padStart(2, '0');
-    const segundos_str: string = String(segundos).padStart(2, '0');
-
-    return `${minutos_str}:${segundos_str}`
-  }
-
-  botaoClicado() : void {
+  botaoClicado(texto: string) : void {
     this.ligado = !this.ligado;
 
     this.alarme.pause();
@@ -71,7 +68,9 @@ export class PomodoroComponent implements OnInit {
     }
   }
 
-  getLabel() : string {
-    return this.botao_labels[this.botao];
+  corrige(data: {pos: number, valor: number}) : void {
+    this.tempos[data.pos] = data.valor;
+
+    console.log(this.tempos);
   }
 }

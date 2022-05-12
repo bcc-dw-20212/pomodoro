@@ -1,8 +1,16 @@
+<div class="tela">
 <div class="relogio">
-    <div class="tela">
-        {{getTempoMinutos()}}
+    <div class="inspira">
+        {{(qod|async) || 'Uma quote qualquer'}}
     </div>
-    <div class="botao">
-        <button (click)="botaoClicado()">{{getLabel()}}</button>
+    <app-tela [display]="true" [tempo_corrente]="tempo_corrente"></app-tela>
+    <app-botao-pomo [label]="botao"
+                    (clique)="botaoClicado($event)"></app-botao-pomo>
+    <div class="rodape">
+        Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
     </div>
+</div>
+<div class="config">
+    <app-cicloconfig *ngFor="let tempo of tempos; index as count" [tempo]="tempo" [posicao]="count" (altera_ciclo)="corrige($event)"></app-cicloconfig>
+</div>
 </div>

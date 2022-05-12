@@ -1,19 +1,25 @@
+div.tela {
+    display: flex;
+    flex-direction: row;
+}
 div.relogio {
     display: flex;
     align-items: center;
     flex-direction: column;
     background-color: darkgrey;
 }
-div.tela {
-    font-size: 5em;
-    padding: 1em;
-    color: ivory;
+div.config {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: darkcyan;
 }
 
-div.botao > button{
-    background-color: olive;
-    color: white;
-    font-size: 2em;
-    border-radius: 4px;
-    padding: 10px;
-}
+@media (max-width: 600px) {
+    div.tela {
+      flex-direction: column;
+    }
+  }
+
+
