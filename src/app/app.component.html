@@ -19,7 +19,10 @@
 </form>
 <hr>
 <app-calculadora></app-calculadora>-->
-<a href="/">Request é enviado</a> |
-<a routerLink="/">Request não é enviado</a>
-
+<ul>
+	<li routerLinkActive="ativo"><a href="/">Request é enviado</a></li>
+	<li routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/">Request não é enviado</a>
+	</li>
+	<li routerLinkActive="ativo"><a routerLink="/outra">Outra</a></li>
+</ul>
 <router-outlet></router-outlet>
