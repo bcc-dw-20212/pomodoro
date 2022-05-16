@@ -75,6 +75,7 @@ export class PomodoroComponent implements OnInit {
     console.log(this.tempos);
   }
 
+  /* Injetei lá no construtor o router, e abaixo podemos programaticamente navegar nas rotas conforme alguma lógica. */
   mudandoRotaComCodigo() {
     // Algum processamento prévio
     this.router.navigate(['/outra']);

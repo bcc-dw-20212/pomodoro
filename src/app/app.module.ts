@@ -15,6 +15,18 @@ import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
 import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
 import { RouterModule, Routes } from '@angular/router';
 
+/*
+  O objeto appRoutes (não é obrigatório esse nome), do tipo Routes, é uma lista
+  onde configuramos nossas rotas com objetos que tenham os atributos path e component.
+
+  O atributo path é o caminho que ao ser acessado renderizará o component apontado ao lado.
+
+  Importante notar que no exemplo abaixo, o path '' significa, por exemplo: http://localhost:4200/
+
+  Se ele fosse users, seria: http://localhost:4200/users
+
+  Este objeto será utilizado para configurar o uso de rotas mais abaixo neste arquivo.
+*/
 const appRoutes: Routes = [
   { path: '', component: PomodoroComponent }
 ]
@@ -36,6 +48,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),
+    /* O RouterModule habilita a navegação entre rotas dinamicamente no frontend.
+    Passamos para ele as rotas descritas no appRoute acima descrito.*/
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
