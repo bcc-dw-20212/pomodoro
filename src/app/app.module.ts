@@ -8,11 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { CalculadoraComponent } from './calculadora/calculadora.component';
 import { BotaoComponent } from './calculadora/botao/botao.component';
 import { StoreModule } from '@ngrx/store';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { TelaComponent } from './pomodoro/tela/tela.component';
 import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
 import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: PomodoroComponent }
+]
 
 @NgModule({
   declarations: [
@@ -30,7 +35,8 @@ import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.compone
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]
