@@ -14,6 +14,7 @@ import { TelaComponent } from './pomodoro/tela/tela.component';
 import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
 import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
 import { RouterModule, Routes } from '@angular/router';
+import { StarpersonComponent } from './starperson/starperson.component';
 
 /*
   O objeto appRoutes (não é obrigatório esse nome), do tipo Routes, é uma lista
@@ -28,7 +29,9 @@ import { RouterModule, Routes } from '@angular/router';
   Este objeto será utilizado para configurar o uso de rotas mais abaixo neste arquivo.
 */
 const appRoutes: Routes = [
-  { path: '', component: PomodoroComponent }
+  { path: '', component: PomodoroComponent },
+  { path: 'outra', component: CalculadoraComponent },
+  { path: 'swp/:id', component: StarpersonComponent }
 ]
 
 @NgModule({
@@ -41,7 +44,8 @@ const appRoutes: Routes = [
     PomodoroComponent,
     TelaComponent,
     BotaoPomoComponent,
-    CicloconfigComponent
+    CicloconfigComponent,
+    StarpersonComponent
   ],
   imports: [
     BrowserModule,

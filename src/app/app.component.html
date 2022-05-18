@@ -19,7 +19,7 @@
 </form>
 <hr>
 <app-calculadora></app-calculadora>-->
-<ul>
+<ul class="nav nav-tabs">
 	<!-- 
 		<a routerLink="/"> -> O routerLink é uma diretiva em que o Angular intercepta a rota do link e não envia
 			request para o backend, mas atualiza o render para o componente correto para a rota. Importante:
@@ -27,10 +27,11 @@
 
 		routerLinkActive -> classe css a utilizar quando a rota em questão for a ativa.
 	 -->
-	<li routerLinkActive="ativo"><a href="/">Request é enviado</a></li>
-	<li routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/">Request não é enviado</a>
+	<li class="nav-item" routerLinkActive="active"><a class="nav-link" href="/">Request é enviado</a></li>
+	<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a class="nav-link" routerLink="/">Request não é enviado</a>
 	</li>
-	<li routerLinkActive="ativo"><a routerLink="/outra">Outra</a></li>
+	<li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/outra">Outra</a></li>
+	<li class="nav-item" routerLinkActive="active"><a routerLink="/swp" class="nav-link">Star wars person</a></li>
 </ul>
 
 <!-- O router-outlet é uma diretiva do Angular que será substituida pelo componente da rota ativa.
