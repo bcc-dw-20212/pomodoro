@@ -1,12 +1,8 @@
 <div class="tela">
     <div class="relogio">
-        <div class="inspira">
-            {{(qod|async) || 'Uma quote qualquer'}}
-        </div>
         <app-tela [display]="true" [tempo_corrente]="tempo_corrente"></app-tela>
         <app-botao-pomo [label]="botao" (clique)="botaoClicado($event)"></app-botao-pomo>
         <div class="rodape">
-            Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
             <button (click)="mudandoRotaComCodigo()">Um exemplo que vou explicar</button>
         </div>
     </div>

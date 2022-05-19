@@ -30,8 +30,9 @@ import { StarpersonComponent } from './starperson/starperson.component';
 */
 const appRoutes: Routes = [
   { path: '', component: PomodoroComponent },
-  { path: 'outra', component: CalculadoraComponent },
-  { path: 'swp/:id', component: StarpersonComponent }
+  { path: 'calculadora', component: CalculadoraComponent },
+  { path: 'swp/:id', component: StarpersonComponent },
+  { path: 'swp', component: StarpersonComponent }
 ]
 
 @NgModule({

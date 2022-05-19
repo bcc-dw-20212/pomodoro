@@ -1,1 +1,6 @@
-<p>starperson works!</p>
+<input type="number" [(ngModel)]="ids">
+<button (click)="carregar()">Carregar</button><br>
+<span *ngIf="pessoa.name !== ''; else loading">
+    {{pessoa.name}} tem {{pessoa.height}}cm de altura e pesa {{pessoa.mass}} kg.
+</span>
+<ng-template #loading>Loading</ng-template>
