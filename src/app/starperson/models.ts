@@ -16,3 +16,23 @@ export class Person {
 	edited: string = "";
 	url: string = "";
 }
+
+export class Planet {
+	name: string = "";
+}
+
+export class Movie {
+	title: string = "";
+}
+
+export class Specie {
+	name: string = "";
+}
+
+export class Vehicle {
+	name: string = "";
+}
+
+export class Starship {
+	name: string = "";
+}

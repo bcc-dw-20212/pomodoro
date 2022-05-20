@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IfceserviceService } from '../ifceservice.service';
-import { Person } from './models';
+import { Movie, Person, Planet, Vehicle, Specie, Starship } from './models';
 
 @Component({
   selector: 'app-starperson',
@@ -10,6 +10,11 @@ import { Person } from './models';
 })
 export class StarpersonComponent implements OnInit {
   pessoa: Person = new Person();
+  planeta: string = '';
+  filmes: string[] = [];
+  especies: string[] = [];
+  veiculos: string[] = [];
+  naves: string[] = [];
   showForm: boolean = true;
   ids: number = 0;
 
@@ -26,6 +31,39 @@ export class StarpersonComponent implements OnInit {
       this.swservice.getPersonagem(id).subscribe(
         (p: Person) => {
           this.pessoa = p;
+          this.swservice.getNomePlaneta(p.homeworld).subscribe(
+            (plan: Planet) => {
+              this.planeta = plan.name;
+            }
+          );
+          for(let filme of p.films){
+            this.swservice.getNomeFilme(filme).subscribe(
+              (fil: Movie) => {
+                this.filmes.push(fil.title);
+              }
+            )
+          }
+          for(let specie of p.species){
+            this.swservice.getNomeEspecie(specie).subscribe(
+              (spc: Specie) => {
+                this.especies.push(spc.name);
+              }
+            )
+          }
+          for(let vei of p.vehicles){
+            this.swservice.getNomeVeiculo(vei).subscribe(
+              (sts: Vehicle) => {
+                this.veiculos.push(sts.name);
+              }
+            )
+          }
+          for(let nave of p.starships){
+            this.swservice.getNomeNave(nave).subscribe(
+              (sts: Starship) => {
+                this.naves.push(sts.name);
+              }
+            )
+          }
         }
       )
     } else {
@@ -38,6 +76,10 @@ export class StarpersonComponent implements OnInit {
   carregar() {
     this.router.navigate([`/swp/${this.ids}`]);
     this.pessoa.name = '';
+    this.especies = [];
+    this.filmes = [];
+    this.veiculos = [];
+    this.naves = [];
     this.load(`${this.ids}`);
   }
 }

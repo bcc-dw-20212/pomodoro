@@ -1,6 +1,37 @@
 <input type="number" [(ngModel)]="ids">
 <button (click)="carregar()">Carregar</button><br>
 <span *ngIf="pessoa.name !== ''; else loading">
-    {{pessoa.name}} tem {{pessoa.height}}cm de altura e pesa {{pessoa.mass}} kg.
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action">Nome: {{pessoa.name}}</li>
+        <li class="list-group-item list-group-item-action">Altura: {{pessoa.height}} cm</li>
+        <li class="list-group-item list-group-item-action">Peso: {{pessoa.mass}} kg</li>
+        <li class="list-group-item list-group-item-action">Cor do cabelo: {{pessoa.hair_color}}</li>
+        <li class="list-group-item list-group-item-action">Cor da pele: {{pessoa.skin_color}}</li>
+        <li class="list-group-item list-group-item-action">Cor dos olhos: {{pessoa.eye_color}}</li>
+        <li class="list-group-item list-group-item-action">Gênero: {{pessoa.gender}}</li>
+        <li class="list-group-item list-group-item-action">Planeta natal: {{planeta}}</li>
+        <li class="list-group-item list-group-item-action">Aparece nos filmes:
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" *ngFor="let filme of filmes">{{filme}}</li>
+            </ul>
+        </li>
+        <li class="list-group-item list-group-item-action">Espécies:
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" *ngFor="let especie of especies">{{especie}}</li>
+            </ul>
+        </li>
+        <li class="list-group-item list-group-item-action">Veículos
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" *ngFor="let veiculo of veiculos">{{veiculo}}</li>
+            </ul>
+        </li>
+        <li class="list-group-item list-group-item-action">Naves
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" *ngFor="let nave of naves">{{nave}}</li>
+            </ul>
+        </li>
+        <li class="list-group-item list-group-item-action">Inserido em {{pessoa.created}}</li>
+        <li class="list-group-item list-group-item-action">Editado em {{pessoa.edited}}</li>
+    </ul>
 </span>
 <ng-template #loading>Loading</ng-template>
