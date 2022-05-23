@@ -1,6 +1,6 @@
 <div class="tela">
     <div class="relogio">
-        <app-tela [display]="true" [tempo_corrente]="tempo_corrente"></app-tela>
+        <app-tela [display]="true" [tempo_corrente]="(tempoDaStore | async)?.tempo_corrente || 0"></app-tela>
         <app-botao-pomo [label]="botao" (clique)="botaoClicado($event)"></app-botao-pomo>
         <div class="rodape">
             <button (click)="mudandoRotaComCodigo()">Um exemplo que vou explicar</button>
@@ -8,7 +8,7 @@
     </div>
     <div class="config">
         <button (click)="resetConfig()">Reset</button>
-        <app-cicloconfig *ngFor="let tempo of tempos; index as count" [tempo]="tempo" [posicao]="count"
+        <app-cicloconfig *ngFor="let tempo of (tempoDaStore | async)?.tempos; index as count" [tempo]="tempo" [posicao]="count"
             (altera_ciclo)="corrige($event)"></app-cicloconfig>
     </div>
 </div>

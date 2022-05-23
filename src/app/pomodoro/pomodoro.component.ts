@@ -12,10 +12,8 @@ import { QuoteserviceService } from './quoteservice.service';
   styleUrls: ['./pomodoro.component.css']
 })
 export class PomodoroComponent implements OnInit {
-  tempos: number[] = [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60];
-  tempo_corrente: number;
-  tempo: number = 0;
-  ligado: boolean = false;
+  tempos: number[] = [100, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60];
+  tempos_padrao: number[] = [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60];
 
   // Itens que vem da store são observables
   tempoDaStore: Observable<fromPomodoroReducer.PomodoroState>;
@@ -26,7 +24,6 @@ export class PomodoroComponent implements OnInit {
 
   // A store é injetada e a gente informa quais partes dela queremos trazer.
   constructor(private router: Router, private store: Store<{ appPomodoro: fromPomodoroReducer.PomodoroState }>) {
-    this.tempo_corrente = this.tempos[this.tempo];
 
     this.alarme = new Audio("https://upload.wikimedia.org/wikipedia/commons/5/5c/Singapore_Public_Warning_System_siren.ogg");
     this.alarme.loop = true;
@@ -45,32 +42,29 @@ export class PomodoroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60] }));
+    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: this.tempos_padrao }));
 
     setInterval(() => {
-      this.ligado && this.tempo_corrente--;
+      // this.ligado && this.tempo_corrente--;
+      this.store.dispatch(PomodoroActions.decRelogio());
 
       this.checaTempo();
     }, 1000);
   }
 
   checaTempo(): void {
-    if (this.tempo_corrente <= 0) {
-      this.ligado = false;
-      this.botao = 0;
-      this.tempo++;
-      this.tempo_corrente = this.tempos[this.tempo];
 
-      this.alarme.play();
+      //this.alarme.play();
 
-      if (this.tempo == this.tempos.length - 1) this.tempo = -1;
-    }
+      //if (this.tempo == this.tempos.length - 1) this.tempo = -1;
+    //}
 
 
   }
 
   botaoClicado(texto: string): void {
-    this.ligado = !this.ligado;
+    //this.ligado = !this.ligado;
+    this.store.dispatch(PomodoroActions.ligaRelogio());
 
     this.alarme.pause();
 
@@ -95,6 +89,6 @@ export class PomodoroComponent implements OnInit {
   }
 
   resetConfig() {
-    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60] }));
+    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: this.tempos_padrao }));
   }
 }
