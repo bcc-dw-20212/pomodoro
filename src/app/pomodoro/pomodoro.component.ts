@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromPomodoroReducer from '../store/pomodoro.reducers';
+import * as PomodoroActions from '../store/pomodoro.actions';
 import { Observable } from 'rxjs';
 import { QuoteserviceService } from './quoteservice.service';
 
@@ -14,20 +17,36 @@ export class PomodoroComponent implements OnInit {
   tempo: number = 0;
   ligado: boolean = false;
 
+  // Itens que vem da store são observables
+  tempoDaStore: Observable<fromPomodoroReducer.PomodoroState>;
+
   botao: number = 0;
 
   alarme: HTMLAudioElement;
 
-  constructor(private router: Router) {
+  // A store é injetada e a gente informa quais partes dela queremos trazer.
+  constructor(private router: Router, private store: Store<{ appPomodoro: fromPomodoroReducer.PomodoroState }>) {
     this.tempo_corrente = this.tempos[this.tempo];
 
     this.alarme = new Audio("https://upload.wikimedia.org/wikipedia/commons/5/5c/Singapore_Public_Warning_System_siren.ogg");
     this.alarme.loop = true;
 
 
+    // Carregando dados da Store
+    this.tempoDaStore = this.store.select('appPomodoro');
+
+    // Acessando os dados do estado programaticamente por meio de subscribe
+    this.tempoDaStore.subscribe((state) => {
+      for (let tempo of state.tempos) {
+        console.log(tempo);
+      }
+    })
+
   }
 
   ngOnInit(): void {
+    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60] }));
+
     setInterval(() => {
       this.ligado && this.tempo_corrente--;
 
@@ -73,5 +92,9 @@ export class PomodoroComponent implements OnInit {
   mudandoRotaComCodigo() {
     // Algum processamento prévio
     this.router.navigate(['/outra']);
+  }
+
+  resetConfig() {
+    this.store.dispatch(PomodoroActions.startPomodoroApp({ tempos: [10, 5 * 60, 25 * 60, 5 * 60, 25 * 60, 45 * 60] }));
   }
 }

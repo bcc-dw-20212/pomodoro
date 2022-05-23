@@ -7,7 +7,13 @@
         </div>
     </div>
     <div class="config">
+        <button (click)="resetConfig()">Reset</button>
         <app-cicloconfig *ngFor="let tempo of tempos; index as count" [tempo]="tempo" [posicao]="count"
             (altera_ciclo)="corrige($event)"></app-cicloconfig>
     </div>
 </div>
+
+<!-- acessando os dados do observable que é alterado sempre que o estado é atualizado -->
+<p *ngFor="let tempo of (tempoDaStore | async)?.tempos">
+    {{tempo}}
+</p>
