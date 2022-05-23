@@ -9,7 +9,7 @@ export class CicloconfigComponent implements OnInit {
   @Input() tempo: number = 0;
   @Input() posicao: number = 0;
 
-  @Output() altera_ciclo: EventEmitter<{pos: number, valor: number}> = new EventEmitter<{pos: number, valor: number}>();
+  @Output() altera_ciclo: EventEmitter<{pos: number, ope: string}> = new EventEmitter<{pos: number, ope: string}>();
 
   constructor() { }
 
@@ -17,16 +17,7 @@ export class CicloconfigComponent implements OnInit {
   }
 
   altera(operador: string){
-    switch(operador){
-      case '+': this.tempo += 60;
-                break;
-      case '-': this.tempo -= 60;
-                break;
-      default:
-                break;
-    }
-
-    this.altera_ciclo.emit({pos: this.posicao, valor: this.tempo});
+    this.altera_ciclo.emit({pos: this.posicao, ope: operador});
   }
 
 }

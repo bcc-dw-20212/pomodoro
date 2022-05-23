@@ -15,7 +15,7 @@ import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
 import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StarpersonComponent } from './starperson/starperson.component';
-import { pomodoroReducer } from './store/pomodoro.reducers';
+import { pomodoroReducer } from './pomodoro/store/pomodoro.reducers';
 
 /*
   O objeto appRoutes (não é obrigatório esse nome), do tipo Routes, é uma lista
