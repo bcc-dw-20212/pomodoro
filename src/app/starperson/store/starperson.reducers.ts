@@ -19,11 +19,14 @@ export const initialState: SWState = {
     loaded: false,
 }
 
+// Note que aqui não temos como injetar os serviços.
+
 export const starpersonReducer = createReducer(
     initialState,
     on(fromStarActions.loadPerson, (state, action) => ({
         ...state,
         to_load: action.id,
+        loaded: false,
     })
     ),
     on(fromStarActions.personLoaded, (state, action) => ({
