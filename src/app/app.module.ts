@@ -15,7 +15,7 @@ import { BotaoPomoComponent } from './pomodoro/botao/botao.component';
 import { CicloconfigComponent } from './pomodoro/cicloconfig/cicloconfig.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StarpersonComponent } from './starperson/starperson.component';
-import { pomodoroReducer } from './pomodoro/store/pomodoro.reducers';
+import * as fromRootReducers from './store/app.reducers';
 
 /*
   O objeto appRoutes (não é obrigatório esse nome), do tipo Routes, é uma lista
@@ -53,8 +53,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    // Configurando a store (reducers)
-    StoreModule.forRoot({ appPomodoro: pomodoroReducer }, {}),
+    // Configurando a store (reducers) (como nosso app agora tem store modular, trouxemos pra cá o mapa de reducers)
+    StoreModule.forRoot(fromRootReducers.AppReducer, {}),
     /* O RouterModule habilita a navegação entre rotas dinamicamente no frontend.
     Passamos para ele as rotas descritas no appRoute acima descrito.*/
     RouterModule.forRoot(appRoutes),

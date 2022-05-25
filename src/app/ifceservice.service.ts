@@ -1,23 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Movie, Person, Planet, Vehicle, Specie, Starship } from './starperson/models';
+import { AppState } from './store/app.reducers';
+import * as fromStarActions from './starperson/store/starperson.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IfceserviceService {
+  id$ = this.store.select((state: AppState) => state.starperson.to_load);
 
-  constructor(private cliente: HttpClient) { }
+  // Serviços podem ter injeção da store também.
+  constructor(private cliente: HttpClient, private store: Store<AppState>) { }
 
   checaSiteIFCE() {
     return this.cliente.get('https://swapi.dev/api/starships/2/');
   }
 
-  getPersonagem(id: string): Observable<Person> {
+  getPersonagem(): void {
     //return this.cliente.get(`https://swapi.dev/api/people/${id}/`);
+    this.id$.subscribe(id => {
+      const loaded: Observable<Person> = this.cliente.get<Person>(`https://swapi.dev/api/people/${id}/`);
+      loaded.subscribe(data => {
+        this.store.dispatch(fromStarActions.personLoaded({person: data}));
+      })
+    });
 
-    return this.cliente.get<Person>(`https://swapi.dev/api/people/${id}/`);
+    
   }
 
   /* Por fins de simplicidade os métodos abaixo estão mal
