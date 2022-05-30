@@ -19,16 +19,13 @@ export class IfceserviceService {
     return this.cliente.get('https://swapi.dev/api/starships/2/');
   }
 
-  getPersonagem(): void {
+  getPersonagem(): Observable<Person> {
     //return this.cliente.get(`https://swapi.dev/api/people/${id}/`);
+    let loaded: Observable<Person> = new Observable<Person>();
     this.id$.subscribe(id => {
-      const loaded: Observable<Person> = this.cliente.get<Person>(`https://swapi.dev/api/people/${id}/`);
-      loaded.subscribe(data => {
-        this.store.dispatch(fromStarActions.personLoaded({person: data}));
-      })
+      loaded = this.cliente.get<Person>(`https://swapi.dev/api/people/${id}/`);
     });
-
-    
+    return loaded;
   }
 
   /* Por fins de simplicidade os métodos abaixo estão mal

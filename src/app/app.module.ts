@@ -17,6 +17,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StarpersonComponent } from './starperson/starperson.component';
 import * as fromRootReducers from './store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { StarpersonEffects } from './starperson/store/starperson.effects';
 
 /*
   O objeto appRoutes (não é obrigatório esse nome), do tipo Routes, é uma lista
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     /* O RouterModule habilita a navegação entre rotas dinamicamente no frontend.
     Passamos para ele as rotas descritas no appRoute acima descrito.*/
     RouterModule.forRoot(appRoutes),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([StarpersonEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -39,45 +39,44 @@ export class StarpersonComponent implements OnInit {
   private load(id: string | null): void {
     if (typeof id === 'string') {
       this.showForm == false;
-      this.store.dispatch(fromStarActions.loadPerson({id: new Number(id)}));
-      this.swservice.getPersonagem();
-        // Desativamos temporariamente pois vamos cuidar disso aqui com Effects em breve.
-        //(p: Person) => {
-        //  this.pessoa = p;
-        //  this.swservice.getNomePlaneta(p.homeworld).subscribe(
-        //    (plan: Planet) => {
-        //      this.planeta = plan.name;
-        //    }
-        //  );
-        //  for(let filme of p.films){
-        //    this.swservice.getNomeFilme(filme).subscribe(
-        //      (fil: Movie) => {
-        //        this.filmes.push(fil.title);
-        //      }
-        //    )
-        //  }
-        //  for(let specie of p.species){
-        //    this.swservice.getNomeEspecie(specie).subscribe(
-        //      (spc: Specie) => {
-        //        this.especies.push(spc.name);
-        //      }
-        //    )
-        //  }
-        //  for(let vei of p.vehicles){
-        //    this.swservice.getNomeVeiculo(vei).subscribe(
-        //      (sts: Vehicle) => {
-        //        this.veiculos.push(sts.name);
-        //      }
-        //    )
-        //  }
-        //  for(let nave of p.starships){
-        //    this.swservice.getNomeNave(nave).subscribe(
-        //      (sts: Starship) => {
-        //        this.naves.push(sts.name);
-        //      }
-        //    )
-        //  }
-        //}
+      this.store.dispatch(fromStarActions.loadPerson({ id: new Number(id) }));
+      // Desativamos temporariamente pois vamos cuidar disso aqui com Effects em breve.
+      //(p: Person) => {
+      //  this.pessoa = p;
+      //  this.swservice.getNomePlaneta(p.homeworld).subscribe(
+      //    (plan: Planet) => {
+      //      this.planeta = plan.name;
+      //    }
+      //  );
+      //  for(let filme of p.films){
+      //    this.swservice.getNomeFilme(filme).subscribe(
+      //      (fil: Movie) => {
+      //        this.filmes.push(fil.title);
+      //      }
+      //    )
+      //  }
+      //  for(let specie of p.species){
+      //    this.swservice.getNomeEspecie(specie).subscribe(
+      //      (spc: Specie) => {
+      //        this.especies.push(spc.name);
+      //      }
+      //    )
+      //  }
+      //  for(let vei of p.vehicles){
+      //    this.swservice.getNomeVeiculo(vei).subscribe(
+      //      (sts: Vehicle) => {
+      //        this.veiculos.push(sts.name);
+      //      }
+      //    )
+      //  }
+      //  for(let nave of p.starships){
+      //    this.swservice.getNomeNave(nave).subscribe(
+      //      (sts: Starship) => {
+      //        this.naves.push(sts.name);
+      //      }
+      //    )
+      //  }
+      //}
       //)
     } else {
       this.showForm = true;
