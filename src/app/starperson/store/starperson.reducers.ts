@@ -12,6 +12,7 @@ export interface SWState {
     person_loaded: Person,
     loaded: boolean,
     error: boolean,
+    planet: string,
 }
 
 export const initialState: SWState = {
@@ -19,6 +20,7 @@ export const initialState: SWState = {
     person_loaded: new Person(),
     loaded: false,
     error: false,
+    planet: "",
 }
 
 // Note que aqui não temos como injetar os serviços.
@@ -35,10 +37,18 @@ export const starpersonReducer = createReducer(
         ...state,
         person_loaded: action.person,
         loaded: true,
+        error: false,
     })
     ),
     on(fromStarActions.errorloading, (state) => ({
         ...state,
         error: true,
-    }))
+        person_loaded: new Person(),
+    })),
+    on(fromStarActions.planetLoading, (state, action) => (
+        {
+            ...state,
+            planet: action.name,
+        }
+    ))
 );
