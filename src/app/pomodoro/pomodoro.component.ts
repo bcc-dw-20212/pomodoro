@@ -5,6 +5,7 @@ import * as fromPomodoroReducer from './store/pomodoro.reducers';
 import * as PomodoroActions from './store/pomodoro.actions';
 import { Observable } from 'rxjs';
 import { PomodoroService } from './pomodoro.service';
+import { AppState } from '../store/app.reducers';
 
 @Component({
   selector: 'app-pomodoro',
@@ -19,10 +20,10 @@ export class PomodoroComponent implements OnInit {
 
   // A store é injetada e a gente informa quais partes dela queremos trazer.
   constructor(private router: Router,
-              private store: Store<{ appPomodoro: fromPomodoroReducer.PomodoroState }>,
+              private store: Store<AppState>,
               private clock: PomodoroService) {
     // Carregando dados da Store
-    this.state = this.store.select('appPomodoro');
+    this.state = this.store.select((state: AppState) => state.pomodoro);
 
     // Acessando os dados do estado programaticamente por meio de subscribe
     //this.tempoDaStore.subscribe((state) => {
