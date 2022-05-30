@@ -16,7 +16,8 @@ import { Movie, Person, Planet, Vehicle, Specie, Starship } from './models';
 export class StarpersonComponent implements OnInit {
   starState: Observable<Person> = new Observable<Person>();
   loaded: Observable<boolean> = new Observable<boolean>();
-  planeta: string = '';
+  error: Observable<boolean> = new Observable<boolean>();
+  planeta: Observable<string> = new Observable<string>();
   filmes: string[] = [];
   especies: string[] = [];
   veiculos: string[] = [];
@@ -24,7 +25,7 @@ export class StarpersonComponent implements OnInit {
   showForm: boolean = true;
   ids: number = 0;
 
-  constructor(private swservice: IfceserviceService, private route: ActivatedRoute, private router: Router, private store: Store<AppState>) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
@@ -34,11 +35,12 @@ export class StarpersonComponent implements OnInit {
     // (no caso escrevemos a função selector inline, na forma de uma arrow function).
     this.starState = this.store.select<Person>((state: AppState) => state.starperson.person_loaded);
     this.loaded = this.store.select<boolean>((state: AppState) => state.starperson.loaded);
+    this.error = this.store.select<boolean>((state) => state.starperson.error);
+    this.planeta = this.store.select<string>((state: AppState) => state.starperson.planet);
   }
 
   private load(id: string | null): void {
     if (typeof id === 'string') {
-      this.showForm == false;
       this.store.dispatch(fromStarActions.loadPerson({ id: new Number(id) }));
       // Desativamos temporariamente pois vamos cuidar disso aqui com Effects em breve.
       //(p: Person) => {
@@ -78,11 +80,9 @@ export class StarpersonComponent implements OnInit {
       //  }
       //}
       //)
-    } else {
-      this.showForm = true;
-    }
 
     this.ids = Number(id);
+    }
   }
 
   carregar() {

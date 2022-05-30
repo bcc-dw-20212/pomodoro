@@ -60,7 +60,7 @@ const appRoutes: Routes = [
     /* O RouterModule habilita a navegação entre rotas dinamicamente no frontend.
     Passamos para ele as rotas descritas no appRoute acima descrito.*/
     RouterModule.forRoot(appRoutes),
-    EffectsModule.forRoot([StarpersonEffects]),
+    EffectsModule.forRoot([StarpersonEffects, ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

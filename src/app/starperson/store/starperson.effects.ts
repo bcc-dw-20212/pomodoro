@@ -20,6 +20,18 @@ export class StarpersonEffects {
         )
     );
 
+    loadPlanet$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fromStarpersonActions.PERSON_LOADED),
+            mergeMap(() => this.service.getNomePlaneta()
+                .pipe(
+                    map(planet => ({ type: fromStarpersonActions.PLANET_LOADED, name: planet.name })),
+                    catchError(() => of({ type: fromStarpersonActions.LOAD_ERROR }))
+                )
+            )
+        )
+    )
+
     constructor(
         private actions$: Actions,
         private service: IfceserviceService
