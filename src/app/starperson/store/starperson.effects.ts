@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { createEffects } from '@ngrx/effects/src/effects_module';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
+import { AppState } from 'src/app/store/app.reducers';
 import { IfceserviceService } from '../../ifceservice.service';
 import * as fromStarpersonActions from './starperson.actions';
 
@@ -32,8 +35,26 @@ export class StarpersonEffects {
         )
     )
 
+    loadMovies$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fromStarpersonActions.PERSON_LOADED),
+            mergeMap(() => this.service.getNomeFilme()
+                .pipe(
+                    map(filme => {
+                            console.log(filme);
+                            return { type: fromStarpersonActions.FILME_LOADED, names: filme }
+                        }
+                    ),
+                    catchError(() => of({ type: fromStarpersonActions.LOAD_ERROR }))
+                )
+            )
+        )
+    )
+
+
+
     constructor(
         private actions$: Actions,
-        private service: IfceserviceService
+        private service: IfceserviceService,
     ) { }
 }

@@ -18,7 +18,7 @@ export class StarpersonComponent implements OnInit {
   loaded: Observable<boolean> = new Observable<boolean>();
   error: Observable<boolean> = new Observable<boolean>();
   planeta: Observable<string> = new Observable<string>();
-  filmes: string[] = [];
+  filmes: Observable<string[]> = new Observable<string[]>();
   especies: string[] = [];
   veiculos: string[] = [];
   naves: string[] = [];
@@ -37,6 +37,7 @@ export class StarpersonComponent implements OnInit {
     this.loaded = this.store.select<boolean>((state: AppState) => state.starperson.loaded);
     this.error = this.store.select<boolean>((state) => state.starperson.error);
     this.planeta = this.store.select<string>((state: AppState) => state.starperson.planet);
+    
   }
 
   private load(id: string | null): void {
@@ -88,7 +89,6 @@ export class StarpersonComponent implements OnInit {
   carregar() {
     this.router.navigate([`/swp/${this.ids}`]);
     this.especies = [];
-    this.filmes = [];
     this.veiculos = [];
     this.naves = [];
     this.load(`${this.ids}`);

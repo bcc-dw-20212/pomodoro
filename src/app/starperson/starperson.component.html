@@ -13,7 +13,7 @@
         <li class="list-group-item list-group-item-action">Planeta natal: {{(planeta | async)}}</li>
         <li class="list-group-item list-group-item-action">Aparece nos filmes:
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" *ngFor="let filme of filmes">{{filme}}</li>
+                <li class="list-group-item list-group-item-action" *ngFor="let filme of (filmes | async)">{{filme}}</li>
             </ul>
         </li>
         <li class="list-group-item list-group-item-action">Espécies:
@@ -36,3 +36,5 @@
     </ul>
 </span>
 <ng-template #loading>Loading</ng-template>
+
+<h1>{{(filmes | async)}}</h1>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Movie, Person, Planet, Vehicle, Specie, Starship } from './starperson/models';
 import { AppState } from './store/app.reducers';
 import * as fromStarActions from './starperson/store/starperson.actions';
@@ -42,8 +42,28 @@ export class IfceserviceService {
     return planeta;
   }
 
-  getNomeFilme(url: string): Observable<Movie> {
-    return this.cliente.get<Movie>(url);
+  getNomeFilme(): Observable<string[]> {
+    let lista: string[] = [];
+
+    this.pessoa$.subscribe(
+        pessoa => {
+          for(let url of pessoa.films){
+            this.cliente.get<Movie>(url).subscribe(
+              movie => {
+                lista.push(movie.title);
+              }
+            );
+          }
+        }
+    );
+
+    let filmes: Observable<string[]> = new Observable<string[]>(
+      observer => {
+        observer.next(lista);
+      }
+    );
+
+    return filmes;
   }
 
   getNomeEspecie(url: string): Observable<Specie> {

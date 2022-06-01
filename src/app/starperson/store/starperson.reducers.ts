@@ -13,6 +13,7 @@ export interface SWState {
     loaded: boolean,
     error: boolean,
     planet: string,
+    filmes: string[],
 }
 
 export const initialState: SWState = {
@@ -21,6 +22,7 @@ export const initialState: SWState = {
     loaded: false,
     error: false,
     planet: "",
+    filmes: [],
 }
 
 // Note que aqui não temos como injetar os serviços.
@@ -50,5 +52,10 @@ export const starpersonReducer = createReducer(
             ...state,
             planet: action.name,
         }
-    ))
+    )),
+    on(fromStarActions.filmeLoading, (state, action) => ({
+            ...state,
+            filmes: action.names,
+        }
+    )),
 );
