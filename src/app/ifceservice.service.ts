@@ -11,7 +11,7 @@ import * as fromStarActions from './starperson/store/starperson.actions';
 })
 export class IfceserviceService {
   id$ = this.store.select((state: AppState) => state.starperson.to_load);
-  pessoa$ : Observable<Person> = this.store.select((state: AppState) => state.starperson.person_loaded);
+  pessoa$: Observable<Person> = this.store.select((state: AppState) => state.starperson.person_loaded);
 
   // Serviços podem ter injeção da store também.
   constructor(private cliente: HttpClient, private store: Store<AppState>) { }
@@ -42,28 +42,8 @@ export class IfceserviceService {
     return planeta;
   }
 
-  getNomeFilme(): Observable<string[]> {
-    let lista: string[] = [];
-
-    this.pessoa$.subscribe(
-        pessoa => {
-          for(let url of pessoa.films){
-            this.cliente.get<Movie>(url).subscribe(
-              movie => {
-                lista.push(movie.title);
-              }
-            );
-          }
-        }
-    );
-
-    let filmes: Observable<string[]> = new Observable<string[]>(
-      observer => {
-        observer.next(lista);
-      }
-    );
-
-    return filmes;
+  getNomeFilme(url: string): Observable<Movie> {
+    return this.cliente.get<Movie>(url);
   }
 
   getNomeEspecie(url: string): Observable<Specie> {

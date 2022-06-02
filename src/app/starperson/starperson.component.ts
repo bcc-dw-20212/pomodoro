@@ -37,7 +37,7 @@ export class StarpersonComponent implements OnInit {
     this.loaded = this.store.select<boolean>((state: AppState) => state.starperson.loaded);
     this.error = this.store.select<boolean>((state) => state.starperson.error);
     this.planeta = this.store.select<string>((state: AppState) => state.starperson.planet);
-    
+    this.filmes = this.store.select<string[]>((state: AppState) => state.starperson.filmes);
   }
 
   private load(id: string | null): void {
@@ -82,7 +82,7 @@ export class StarpersonComponent implements OnInit {
       //}
       //)
 
-    this.ids = Number(id);
+      this.ids = Number(id);
     }
   }
 

@@ -33,6 +33,7 @@ export const starpersonReducer = createReducer(
         ...state,
         to_load: action.id,
         loaded: false,
+        filmes: [],
     })
     ),
     on(fromStarActions.personLoaded, (state, action) => ({
@@ -54,8 +55,8 @@ export const starpersonReducer = createReducer(
         }
     )),
     on(fromStarActions.filmeLoading, (state, action) => ({
-            ...state,
-            filmes: action.names,
-        }
+        ...state,
+        filmes: [...state.filmes, action.name],
+    }
     )),
 );

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createEffects } from '@ngrx/effects/src/effects_module';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.reducers';
 import { IfceserviceService } from '../../ifceservice.service';
+import { Movie } from '../models';
 import * as fromStarpersonActions from './starperson.actions';
 
 @Injectable()
@@ -35,26 +35,27 @@ export class StarpersonEffects {
         )
     )
 
-    loadMovies$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(fromStarpersonActions.PERSON_LOADED),
-            mergeMap(() => this.service.getNomeFilme()
-                .pipe(
-                    map(filme => {
-                            console.log(filme);
-                            return { type: fromStarpersonActions.FILME_LOADED, names: filme }
-                        }
-                    ),
-                    catchError(() => of({ type: fromStarpersonActions.LOAD_ERROR }))
-                )
-            )
-        )
-    )
+    loadMovies$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(fromStarpersonActions.PERSON_LOADED),
+                concatLatestFrom(action => this.store.select((state: AppState) => state.starperson.person_loaded.films)),
+                tap(([action, films]) => {
+                    for (let film of films) {
+                        this.service.getNomeFilme(film).subscribe(
+                            (movie: Movie) => this.store.dispatch(fromStarpersonActions.filmeLoading({ name: movie.title })),
+                        );
+                    }
+                }
+                )),
+        { dispatch: false },
+    );
 
 
 
     constructor(
         private actions$: Actions,
         private service: IfceserviceService,
+        private store: Store<AppState>,
     ) { }
 }

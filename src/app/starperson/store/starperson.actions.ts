@@ -17,4 +17,4 @@ export const loadPerson = createAction(LOAD_PERSON, props<{ id: Number }>());
 export const personLoaded = createAction(PERSON_LOADED, props<{ person: Person }>());
 export const errorloading = createAction(LOAD_ERROR);
 export const planetLoading = createAction(PLANET_LOADED, props<{ name: string }>());
-export const filmeLoading = createAction(FILME_LOADED, props<{names: string[]}>());
+export const filmeLoading = createAction(FILME_LOADED, props<{ name: string }>());
