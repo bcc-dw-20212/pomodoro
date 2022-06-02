@@ -18,17 +18,19 @@
         </li>
         <li class="list-group-item list-group-item-action">Espécies:
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" *ngFor="let especie of especies">{{especie}}</li>
+                <li class="list-group-item list-group-item-action" *ngFor="let especie of (especies | async)">
+                    {{especie}}</li>
             </ul>
         </li>
         <li class="list-group-item list-group-item-action">Veículos
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" *ngFor="let veiculo of veiculos">{{veiculo}}</li>
+                <li class="list-group-item list-group-item-action" *ngFor="let veiculo of (veiculos | async)">
+                    {{veiculo}}</li>
             </ul>
         </li>
         <li class="list-group-item list-group-item-action">Naves
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" *ngFor="let nave of naves">{{nave}}</li>
+                <li class="list-group-item list-group-item-action" *ngFor="let nave of (naves | async)">{{nave}}</li>
             </ul>
         </li>
         <li class="list-group-item list-group-item-action">Inserido em {{(starState | async)?.created}}</li>

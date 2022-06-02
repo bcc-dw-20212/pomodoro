@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.reducers';
 import { IfceserviceService } from '../../ifceservice.service';
-import { Movie } from '../models';
+import { Movie, Specie, Starship, Vehicle } from '../models';
 import * as fromStarpersonActions from './starperson.actions';
 
 @Injectable()
@@ -50,6 +50,56 @@ export class StarpersonEffects {
                 )),
         { dispatch: false },
     );
+
+    loadEspecies$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(fromStarpersonActions.PERSON_LOADED),
+                concatLatestFrom(action => this.store.select((state: AppState) => state.starperson.person_loaded.species)),
+                tap(([action, especies]) => {
+                    for (let especie of especies) {
+                        this.service.getNomeEspecie(especie).subscribe(
+                            (especie: Specie) => this.store.dispatch(fromStarpersonActions.especieLoading({ name: especie.name })),
+                        )
+                    }
+                }
+                )
+            ),
+        { dispatch: false }
+    );
+
+    loadVeiculo$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(fromStarpersonActions.PERSON_LOADED),
+                concatLatestFrom(action => this.store.select((state: AppState) => state.starperson.person_loaded.vehicles)),
+                tap(([action, veiculos]) => {
+                    for (let veiculo of veiculos) {
+                        this.service.getNomeVeiculo(veiculo).subscribe(
+                            (veiculo: Vehicle) => this.store.dispatch(fromStarpersonActions.veiculoLoading({ name: veiculo.name })),
+                        )
+                    }
+                }
+                )
+            ),
+        { dispatch: false }
+    )
+
+    loadNaves$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(fromStarpersonActions.PERSON_LOADED),
+                concatLatestFrom((action) => this.store.select((state: AppState) => state.starperson.person_loaded.starships)),
+                tap(([action, naves]) => {
+                    for (let nave of naves) {
+                        this.service.getNomeNave(nave).subscribe(
+                            (nave: Starship) => this.store.dispatch(fromStarpersonActions.naveLoading({ name: nave.name })),
+                        )
+                    }
+                })
+            ),
+        { dispatch: false }
+    )
 
 
 

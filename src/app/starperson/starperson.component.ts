@@ -19,9 +19,9 @@ export class StarpersonComponent implements OnInit {
   error: Observable<boolean> = new Observable<boolean>();
   planeta: Observable<string> = new Observable<string>();
   filmes: Observable<string[]> = new Observable<string[]>();
-  especies: string[] = [];
-  veiculos: string[] = [];
-  naves: string[] = [];
+  especies: Observable<string[]> = new Observable<string[]>();
+  veiculos: Observable<string[]> = new Observable<string[]>();
+  naves: Observable<string[]> = new Observable<string[]>();
   showForm: boolean = true;
   ids: number = 0;
 
@@ -38,6 +38,9 @@ export class StarpersonComponent implements OnInit {
     this.error = this.store.select<boolean>((state) => state.starperson.error);
     this.planeta = this.store.select<string>((state: AppState) => state.starperson.planet);
     this.filmes = this.store.select<string[]>((state: AppState) => state.starperson.filmes);
+    this.especies = this.store.select<string[]>((state: AppState) => state.starperson.especies);
+    this.veiculos = this.store.select<string[]>((state: AppState) => state.starperson.veiculos);
+    this.naves = this.store.select<string[]>((state: AppState) => state.starperson.naves);
   }
 
   private load(id: string | null): void {
@@ -88,9 +91,6 @@ export class StarpersonComponent implements OnInit {
 
   carregar() {
     this.router.navigate([`/swp/${this.ids}`]);
-    this.especies = [];
-    this.veiculos = [];
-    this.naves = [];
     this.load(`${this.ids}`);
   }
 }
